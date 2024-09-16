@@ -21,6 +21,7 @@ class BarrasPasteles extends JFrame {
     protected static final int MIN_FILAS = 3;
     protected BufferedImage imageBackground1;
     protected BufferedImage imageBackground2;
+    protected boolean primeraVez = true;
 
     public BarrasPasteles() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,7 +130,10 @@ class BarrasPasteles extends JFrame {
                 if (imageBackground2 != null) {
                     g.drawImage(imageBackground2, 0, 0, getWidth(), getHeight(), this);
                 }
-                dibujarGrafica(g);
+
+                if (!primeraVez) {
+                    dibujarGrafica(g);
+                }
             }
         };
         panelGrafica.setBackground(Color.WHITE);
@@ -163,6 +167,7 @@ class BarrasPasteles extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (validarDatos()) {
+                    primeraVez = false;
                     panelGrafica.repaint();
                 }
             }
