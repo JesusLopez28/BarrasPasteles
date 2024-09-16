@@ -121,6 +121,12 @@ class BarrasPasteles extends JFrame {
         gbc.gridwidth = 2;
         panelCaptura.add(btnGenerarGrafica, gbc);
 
+        JButton btnLimpiar = new JButton("Limpiar");
+        gbc.gridx = 0;
+        gbc.gridy = 7;
+        gbc.gridwidth = 2;
+        panelCaptura.add(btnLimpiar, gbc);
+
         panelGrafica = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -170,6 +176,18 @@ class BarrasPasteles extends JFrame {
                     primeraVez = false;
                     panelGrafica.repaint();
                 }
+            }
+        });
+
+        btnLimpiar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modeloTabla.setRowCount(0);
+                modeloTabla.addRow(new Object[]{"Item 1", "1"});
+                modeloTabla.addRow(new Object[]{"Item 2", "1"});
+                modeloTabla.addRow(new Object[]{"Item 3", "1"});
+                primeraVez = true;
+                panelGrafica.repaint();
             }
         });
     }
