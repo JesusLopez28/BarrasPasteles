@@ -43,6 +43,8 @@ class BarrasPasteles extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
                 if (imageBackground1 != null) {
                     g.drawImage(imageBackground1, 0, 0, getWidth(), getHeight(), this);
                 }
@@ -122,6 +124,8 @@ class BarrasPasteles extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                ((Graphics2D) g).setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
                 if (imageBackground2 != null) {
                     g.drawImage(imageBackground2, 0, 0, getWidth(), getHeight(), this);
                 }
@@ -220,10 +224,22 @@ class BarrasPasteles extends JFrame {
                 int x = margin + i * barWidth;
                 int y = height - margin - barHeight - 10;
 
-                g2d.setColor(new Color((int) (Math.random() * 0x1000000)));
-                g2d.fillRect(x, y, barWidth - 5, barHeight);
+                Color color1 = new Color((int) (Math.random() * 0x7F7F7F7F));
+                Color color2 = new Color((int) (Math.random() * 0x7F7F7F7F));
 
+                GradientPaint gradient = new GradientPaint(x, y, color1, x + barWidth - 5, y + barHeight, color2);
+                g2d.setPaint(gradient);
+                g2d.fillRect(x, y, barWidth - 5, barHeight);
                 g2d.fillRect(x + barWidth / 2 - 25, height - margin, 10, 10);
+
+                Color color3 = new Color((int) (Math.random() * 0x7F7F7F7F));
+                Color color4 = new Color((int) (Math.random() * 0x7F7F7F7F));
+                GradientPaint gradient2 = new GradientPaint(x, y, color3, x + barWidth - 5, y + barHeight, color4);
+                for (int j = 10; j < barHeight; j += 10) {
+                    g2d.setPaint(gradient2);
+                    g2d.fillOval(x, y + j - 10, barWidth - 5, 10);
+                }
+
                 g2d.setColor(Color.BLACK);
                 g2d.drawString(items[i], x + barWidth / 2 - 10, height - margin + 10);
 
@@ -238,11 +254,15 @@ class BarrasPasteles extends JFrame {
             double startAngle = 0;
             for (int i = 0; i < rowCount; i++) {
                 double arcAngle = 360 * (valores[i] / total);
-                double midAngle = startAngle + arcAngle / 2;
-                g2d.setColor(new Color((int) (Math.random() * 0x1000000)));
+
+                Color color1 = new Color((int) (Math.random() * 0x7F7F7F7F));
+                Color color2 = new Color((int) (Math.random() * 0x7F7F7F7F));
+                GradientPaint gradient = new GradientPaint(x, y, color1, x + diameter, y + diameter, color2);
+                g2d.setPaint(gradient);
                 g2d.fill(new Arc2D.Double(x, y, diameter, diameter, startAngle, arcAngle, Arc2D.PIE));
 
                 g2d.fillRect(margin + i * 65, height - margin, 10, 10);
+
                 g2d.setColor(Color.BLACK);
                 g2d.drawString(items[i], margin + i * 65 + 15, height - margin + 10);
 
